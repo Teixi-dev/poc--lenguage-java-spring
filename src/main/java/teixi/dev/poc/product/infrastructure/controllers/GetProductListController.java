@@ -22,6 +22,6 @@ public class GetProductListController {
 
     @GetMapping(value = "/products")
     public ResponseEntity<List<ProductView>> getProductList() {
-        return ResponseEntity.ok(this.useCase.execute().stream().map(mapper::map).toList());
+        return ResponseEntity.ok(this.useCase.execute().stream().map(this.mapper::map).toList());
     }
 }

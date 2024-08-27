@@ -17,14 +17,14 @@ import java.util.List;
 
 @Repository
 public class MySqlProductRepository implements ProductRepository {
-    private static final String SEARCH_ALL_PRODUCTS_QUERY_PATH = "searchAllProductsQuery";
+    private static final String SEARCH_ALL_PRODUCTS_QUERY_PATH = "searchAllProducts";
     private static final String FIND_PRODUCT_BY_CODE_QUERY_PATH = "findProductByCode";
     private static final String PRODUCT_CODE_QUERY_PARAM = "productCode";
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final ProductRowMapper mapper;
-    private final Query searchAllProductsQuery;
-    private final Query findProductByProductCode;
+    private final Query searchAll;
+    private final Query findProductByCode;
 
     public MySqlProductRepository(
             NamedParameterJdbcTemplate jdbcTemplate,
@@ -33,20 +33,20 @@ public class MySqlProductRepository implements ProductRepository {
     ) throws IOException {
         this.jdbcTemplate = jdbcTemplate;
         this.mapper = mapper;
-        this.searchAllProductsQuery = queryRepository.load(SEARCH_ALL_PRODUCTS_QUERY_PATH);
-        this.findProductByProductCode = queryRepository.load(FIND_PRODUCT_BY_CODE_QUERY_PATH);
+        this.searchAll = queryRepository.load(SEARCH_ALL_PRODUCTS_QUERY_PATH);
+        this.findProductByCode = queryRepository.load(FIND_PRODUCT_BY_CODE_QUERY_PATH);
     }
 
     @Override
     public List<Product> searchAll() {
-        return this.jdbcTemplate.query(searchAllProductsQuery.getValue(), mapper);
+        return this.jdbcTemplate.query(searchAll.getValue(), mapper);
     }
 
     @Override
     public Product find(ProductCode productCode) {
         try {
             return this.jdbcTemplate.queryForObject(
-                    findProductByProductCode.getValue(),
+                    findProductByCode.getValue(),
                     new MapSqlParameterSource(PRODUCT_CODE_QUERY_PARAM, productCode.getValue().toString()),
                     mapper
             );
