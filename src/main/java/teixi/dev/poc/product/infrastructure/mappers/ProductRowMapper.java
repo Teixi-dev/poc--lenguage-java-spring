@@ -3,7 +3,7 @@ package teixi.dev.poc.product.infrastructure.mappers;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import teixi.dev.poc.product.domain.models.Product;
-import teixi.dev.poc.shared.domain.models.ProductCode;
+import teixi.dev.poc.product.domain.models.ProductCode;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

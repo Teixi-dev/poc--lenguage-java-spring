@@ -4,17 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import teixi.dev.poc.order.domain.exceptions.InvalidAmountException;
 import teixi.dev.poc.order.domain.exceptions.OrderAdvanceStatusException;
-import teixi.dev.poc.shared.domain.models.ClientCode;
-import teixi.dev.poc.shared.domain.models.OrderCode;
-import teixi.dev.poc.shared.domain.models.OrderStatus;
-import teixi.dev.poc.shared.domain.models.ProductCode;
+import teixi.dev.poc.client.domain.models.ClientCode;
+import teixi.dev.poc.product.domain.models.ProductCode;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Getter
 @Builder
-
 public class Order {
     private static final int MIN_AMOUNT = 1;
 
@@ -45,13 +41,14 @@ public class Order {
         return advancedOrder;
     }
 
-    public static Order create(ClientCode clientCode, ProductCode productCode, int amount) {
+    public static Order create(OrderCode orderCode, ClientCode clientCode, ProductCode productCode, int amount) {
         if (amount < MIN_AMOUNT)
             throw new InvalidAmountException();
+
         Date nowDate = new Date();
 
         return Order.builder()
-                .code(OrderCode.builder().value(UUID.randomUUID()).build())
+                .code(orderCode)
                 .clientCode(clientCode)
                 .productCode(productCode)
                 .amount(amount)

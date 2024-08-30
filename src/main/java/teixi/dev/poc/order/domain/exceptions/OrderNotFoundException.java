@@ -2,7 +2,7 @@ package teixi.dev.poc.order.domain.exceptions;
 
 import org.springframework.http.HttpStatus;
 import teixi.dev.poc.shared.domain.exceptions.RuntimeDomainViolation;
-import teixi.dev.poc.shared.domain.models.OrderCode;
+import teixi.dev.poc.order.domain.models.OrderCode;
 
 public class OrderNotFoundException extends RuntimeDomainViolation {
     private static final HttpStatus HTTP_STATUS = HttpStatus.NOT_FOUND;

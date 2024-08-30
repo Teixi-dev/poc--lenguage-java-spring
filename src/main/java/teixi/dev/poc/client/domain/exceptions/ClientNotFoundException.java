@@ -2,7 +2,7 @@ package teixi.dev.poc.client.domain.exceptions;
 
 import org.springframework.http.HttpStatus;
 import teixi.dev.poc.shared.domain.exceptions.RuntimeDomainViolation;
-import teixi.dev.poc.shared.domain.models.ClientCode;
+import teixi.dev.poc.client.domain.models.ClientCode;
 
 public class ClientNotFoundException extends RuntimeDomainViolation {
     private static final HttpStatus HTTP_STATUS = HttpStatus.NOT_FOUND;

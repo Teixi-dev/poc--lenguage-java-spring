@@ -2,7 +2,7 @@ package teixi.dev.poc.client.domain.repositories;
 
 import teixi.dev.poc.client.domain.exceptions.ClientNotFoundException;
 import teixi.dev.poc.client.domain.models.Client;
-import teixi.dev.poc.shared.domain.models.ClientCode;
+import teixi.dev.poc.client.domain.models.ClientCode;
 
 import java.util.List;
 

@@ -8,7 +8,7 @@ import teixi.dev.poc.client.domain.exceptions.ClientNotFoundException;
 import teixi.dev.poc.client.domain.models.Client;
 import teixi.dev.poc.client.domain.repositories.ClientRepository;
 import teixi.dev.poc.client.insfrastructure.models.ClientRowMapper;
-import teixi.dev.poc.shared.domain.models.ClientCode;
+import teixi.dev.poc.client.domain.models.ClientCode;
 import teixi.dev.poc.shared.domain.models.Query;
 import teixi.dev.poc.shared.domain.repositories.QueryRepository;
 

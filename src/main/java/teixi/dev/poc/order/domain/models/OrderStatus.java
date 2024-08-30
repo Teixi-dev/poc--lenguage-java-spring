@@ -1,4 +1,4 @@
-package teixi.dev.poc.shared.domain.models;
+package teixi.dev.poc.order.domain.models;
 
 import lombok.Getter;
 
@@ -21,7 +21,7 @@ public enum OrderStatus {
                 return status;
             }
         }
-        
+
         return INVALID_STATUS;
     }
 }

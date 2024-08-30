@@ -1,7 +1,7 @@
 package teixi.dev.poc.product.domain.repositories;
 
 import teixi.dev.poc.product.domain.models.Product;
-import teixi.dev.poc.shared.domain.models.ProductCode;
+import teixi.dev.poc.product.domain.models.ProductCode;
 
 import java.util.List;
 

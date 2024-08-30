@@ -8,8 +8,8 @@ import teixi.dev.poc.order.domain.exceptions.OrderNotFoundException;
 import teixi.dev.poc.order.domain.models.Order;
 import teixi.dev.poc.order.domain.repositories.OrderRepository;
 import teixi.dev.poc.order.infrastructure.mappers.OrderRowMapper;
-import teixi.dev.poc.shared.domain.models.ClientCode;
-import teixi.dev.poc.shared.domain.models.OrderCode;
+import teixi.dev.poc.client.domain.models.ClientCode;
+import teixi.dev.poc.order.domain.models.OrderCode;
 import teixi.dev.poc.shared.domain.models.Query;
 import teixi.dev.poc.shared.domain.repositories.QueryRepository;
 

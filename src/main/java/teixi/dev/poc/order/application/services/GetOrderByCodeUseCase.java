@@ -10,7 +10,7 @@ import teixi.dev.poc.order.domain.models.Order;
 import teixi.dev.poc.order.domain.repositories.OrderRepository;
 import teixi.dev.poc.product.domain.models.Product;
 import teixi.dev.poc.product.domain.repositories.ProductRepository;
-import teixi.dev.poc.shared.domain.models.OrderCode;
+import teixi.dev.poc.order.domain.models.OrderCode;
 
 @Service
 public class GetOrderByCodeUseCase {

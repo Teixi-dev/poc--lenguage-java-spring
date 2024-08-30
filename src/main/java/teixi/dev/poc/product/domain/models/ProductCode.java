@@ -1,4 +1,4 @@
-package teixi.dev.poc.shared.domain.models;
+package teixi.dev.poc.product.domain.models;
 
 import lombok.Builder;
 import lombok.Getter;

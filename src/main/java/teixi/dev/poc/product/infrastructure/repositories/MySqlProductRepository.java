@@ -8,7 +8,7 @@ import teixi.dev.poc.product.domain.exception.ProductNotFoundException;
 import teixi.dev.poc.product.domain.models.Product;
 import teixi.dev.poc.product.domain.repositories.ProductRepository;
 import teixi.dev.poc.product.infrastructure.mappers.ProductRowMapper;
-import teixi.dev.poc.shared.domain.models.ProductCode;
+import teixi.dev.poc.product.domain.models.ProductCode;
 import teixi.dev.poc.shared.domain.models.Query;
 import teixi.dev.poc.shared.domain.repositories.QueryRepository;
 

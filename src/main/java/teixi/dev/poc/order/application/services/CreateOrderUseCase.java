@@ -7,12 +7,14 @@ import teixi.dev.poc.client.domain.repositories.ClientRepository;
 import teixi.dev.poc.order.application.mappers.OrderResponseMapper;
 import teixi.dev.poc.order.application.models.CreateOrderCommand;
 import teixi.dev.poc.order.application.models.response.OrderResponse;
+import teixi.dev.poc.order.domain.exceptions.OrderNotFoundException;
 import teixi.dev.poc.order.domain.models.Order;
 import teixi.dev.poc.order.domain.repositories.OrderRepository;
 import teixi.dev.poc.product.domain.models.Product;
 import teixi.dev.poc.product.domain.repositories.ProductRepository;
-import teixi.dev.poc.shared.domain.models.ClientCode;
-import teixi.dev.poc.shared.domain.models.ProductCode;
+import teixi.dev.poc.client.domain.models.ClientCode;
+import teixi.dev.poc.order.domain.models.OrderCode;
+import teixi.dev.poc.product.domain.models.ProductCode;
 
 @Service
 @Transactional
@@ -51,6 +53,7 @@ public class CreateOrderUseCase {
         this.productRepository.save(productWithdrawStock);
 
         Order order = Order.create(
+                generateUniqueOrderCode(),
                 clientCode,
                 productCode,
                 command.getAmount()
@@ -59,5 +62,15 @@ public class CreateOrderUseCase {
         this.orderRepository.save(order);
 
         return this.mapper.map(order, client, productWithdrawStock);
+    }
+
+    private OrderCode generateUniqueOrderCode() {
+        OrderCode orderCode = OrderCode.create();
+        try {
+            this.orderRepository.find(orderCode);
+        } catch (OrderNotFoundException exception) {
+            return orderCode;
+        }
+        return generateUniqueOrderCode();
     }
 }

@@ -2,8 +2,8 @@ package teixi.dev.poc.order.domain.repositories;
 
 import teixi.dev.poc.order.domain.exceptions.OrderNotFoundException;
 import teixi.dev.poc.order.domain.models.Order;
-import teixi.dev.poc.shared.domain.models.ClientCode;
-import teixi.dev.poc.shared.domain.models.OrderCode;
+import teixi.dev.poc.client.domain.models.ClientCode;
+import teixi.dev.poc.order.domain.models.OrderCode;
 
 import java.util.List;
 

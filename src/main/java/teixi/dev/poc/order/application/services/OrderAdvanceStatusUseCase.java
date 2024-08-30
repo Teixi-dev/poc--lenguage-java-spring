@@ -6,7 +6,7 @@ import teixi.dev.poc.order.application.models.OrderAdvanceStatusCommand;
 import teixi.dev.poc.order.application.models.response.OrderResponse;
 import teixi.dev.poc.order.domain.models.Order;
 import teixi.dev.poc.order.domain.repositories.OrderRepository;
-import teixi.dev.poc.shared.domain.models.OrderCode;
+import teixi.dev.poc.order.domain.models.OrderCode;
 
 @Service
 public class OrderAdvanceStatusUseCase {

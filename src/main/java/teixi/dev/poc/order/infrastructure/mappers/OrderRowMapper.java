@@ -3,10 +3,10 @@ package teixi.dev.poc.order.infrastructure.mappers;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import teixi.dev.poc.order.domain.models.Order;
-import teixi.dev.poc.shared.domain.models.ClientCode;
-import teixi.dev.poc.shared.domain.models.OrderCode;
-import teixi.dev.poc.shared.domain.models.OrderStatus;
-import teixi.dev.poc.shared.domain.models.ProductCode;
+import teixi.dev.poc.client.domain.models.ClientCode;
+import teixi.dev.poc.order.domain.models.OrderCode;
+import teixi.dev.poc.order.domain.models.OrderStatus;
+import teixi.dev.poc.product.domain.models.ProductCode;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

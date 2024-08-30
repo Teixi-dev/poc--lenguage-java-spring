@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import teixi.dev.poc.product.application.models.GetProductCommand;
 import teixi.dev.poc.product.domain.models.Product;
 import teixi.dev.poc.product.domain.repositories.ProductRepository;
-import teixi.dev.poc.shared.domain.models.ProductCode;
+import teixi.dev.poc.product.domain.models.ProductCode;
 
 import java.util.UUID;
 

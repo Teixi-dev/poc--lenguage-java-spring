@@ -2,8 +2,8 @@ package teixi.dev.poc.order.domain.exceptions;
 
 import org.springframework.http.HttpStatus;
 import teixi.dev.poc.shared.domain.exceptions.RuntimeDomainViolation;
-import teixi.dev.poc.shared.domain.models.OrderCode;
-import teixi.dev.poc.shared.domain.models.OrderStatus;
+import teixi.dev.poc.order.domain.models.OrderCode;
+import teixi.dev.poc.order.domain.models.OrderStatus;
 
 public class OrderAdvanceStatusException extends RuntimeDomainViolation {
     private static final HttpStatus HTTP_STATUS = HttpStatus.CONFLICT;
