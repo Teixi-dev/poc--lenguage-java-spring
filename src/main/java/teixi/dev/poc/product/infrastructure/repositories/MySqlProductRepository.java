@@ -19,12 +19,20 @@ import java.util.List;
 public class MySqlProductRepository implements ProductRepository {
     private static final String SEARCH_ALL_PRODUCTS_QUERY_PATH = "searchAllProducts";
     private static final String FIND_PRODUCT_BY_CODE_QUERY_PATH = "findProductByCode";
+    private static final String FIND_PRODUCTS_BY_CODES_QUERY_PATH = "findProductsByCodes";
+    private static final String SAVE_PRODUCT_QUERY_PATH = "saveProduct";
     private static final String PRODUCT_CODE_QUERY_PARAM = "productCode";
+    private static final String PRODUCT_NAME_QUERY_PARAM = "productName";
+    private static final String PRODUCT_DETAIL_QUERY_PARAM = "productDetail";
+    private static final String PRODUCT_STOCK_QUERY_PARAM = "productStock";
+    private static final String LIST_OF_PRODUCT_CODE_QUERY_PARAM = "productsCodes";
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final ProductRowMapper mapper;
     private final Query searchAll;
     private final Query findProductByCode;
+    private final Query findProductsByCodes;
+    private final Query saveProduct;
 
     public MySqlProductRepository(
             NamedParameterJdbcTemplate jdbcTemplate,
@@ -35,6 +43,8 @@ public class MySqlProductRepository implements ProductRepository {
         this.mapper = mapper;
         this.searchAll = queryRepository.load(SEARCH_ALL_PRODUCTS_QUERY_PATH);
         this.findProductByCode = queryRepository.load(FIND_PRODUCT_BY_CODE_QUERY_PATH);
+        this.findProductsByCodes = queryRepository.load(FIND_PRODUCTS_BY_CODES_QUERY_PATH);
+        this.saveProduct = queryRepository.load(SAVE_PRODUCT_QUERY_PATH);
     }
 
     @Override
@@ -53,5 +63,31 @@ public class MySqlProductRepository implements ProductRepository {
         } catch (EmptyResultDataAccessException e) {
             throw new ProductNotFoundException(productCode);
         }
+    }
+
+    @Override
+    public List<Product> find(List<ProductCode> productsCode) {
+        return this.jdbcTemplate.query(
+                findProductsByCodes.getValue(),
+                new MapSqlParameterSource(
+                        LIST_OF_PRODUCT_CODE_QUERY_PARAM,
+                        productsCode.stream().map(productCode ->
+                                productCode.getValue().toString()
+                        ).toList()
+                ),
+                mapper
+        );
+    }
+
+    @Override
+    public void save(Product product) {
+        this.jdbcTemplate.update(
+                this.saveProduct.getValue(),
+                new MapSqlParameterSource()
+                        .addValue(PRODUCT_CODE_QUERY_PARAM, product.getCode().getValue().toString())
+                        .addValue(PRODUCT_NAME_QUERY_PARAM, product.getName())
+                        .addValue(PRODUCT_DETAIL_QUERY_PARAM, product.getDetail())
+                        .addValue(PRODUCT_STOCK_QUERY_PARAM, product.getStock())
+        );
     }
 }

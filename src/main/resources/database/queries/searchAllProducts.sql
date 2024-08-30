@@ -1,2 +1,2 @@
-SELECT code, name, detail, price, stock
+SELECT code, name, detail, stock
 FROM products;

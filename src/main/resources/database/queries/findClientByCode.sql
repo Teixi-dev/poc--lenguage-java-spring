@@ -1,3 +1,3 @@
-SELECT code, name
+SELECT code, name, phone
 FROM clients
 WHERE code = :clientCode;

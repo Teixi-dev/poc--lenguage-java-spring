@@ -12,7 +12,6 @@ public class ProductViewMapper {
                 .code(product.getCode().getValue().toString())
                 .name(product.getName())
                 .detail(product.getDetail())
-                .price(product.getPrice())
                 .stock(product.getStock())
                 .build();
     }

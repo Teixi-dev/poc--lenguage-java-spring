@@ -8,5 +8,6 @@ import teixi.dev.poc.shared.domain.models.ClientCode;
 @Builder
 public class Client {
     private ClientCode code;
+    private String phone;
     private String name;
 }

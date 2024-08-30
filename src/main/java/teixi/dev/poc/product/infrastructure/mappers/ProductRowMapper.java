@@ -14,7 +14,6 @@ public class ProductRowMapper implements RowMapper<Product> {
     private static final String CODE_COLUMN = "code";
     private static final String NAME_COLUMN = "name";
     private static final String DETAIL_COLUMN = "detail";
-    private static final String PRICE_COLUMN = "price";
     private static final String STOCK_COLUMN = "stock";
 
     @Override
@@ -26,7 +25,6 @@ public class ProductRowMapper implements RowMapper<Product> {
                 )
                 .name(rs.getString(NAME_COLUMN))
                 .detail(rs.getString(DETAIL_COLUMN))
-                .price(rs.getFloat(PRICE_COLUMN))
                 .stock(rs.getInt(STOCK_COLUMN))
                 .build();
     }

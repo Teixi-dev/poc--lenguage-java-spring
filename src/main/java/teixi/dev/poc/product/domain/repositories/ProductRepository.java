@@ -9,4 +9,8 @@ public interface ProductRepository {
     public List<Product> searchAll();
 
     public Product find(ProductCode productCode);
+
+    public List<Product> find(List<ProductCode> productsCode);
+
+    public void save(Product product);
 }
