@@ -5,7 +5,6 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class Query {
-    private QueryCode code;
+public class QueryCode {
     private String value;
 }

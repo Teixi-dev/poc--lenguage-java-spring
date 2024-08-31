@@ -2,7 +2,9 @@ package teixi.dev.poc.shared.infrastructure.repositories;
 
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Repository;
+import teixi.dev.poc.shared.domain.exceptions.QueryNotFoundException;
 import teixi.dev.poc.shared.domain.models.Query;
+import teixi.dev.poc.shared.domain.models.QueryCode;
 import teixi.dev.poc.shared.domain.repositories.QueryRepository;
 
 import java.io.IOException;
@@ -21,12 +23,17 @@ public class ClassPathQueryRepository implements QueryRepository {
     }
 
     @Override
-    public Query load(String queryName) throws IOException {
-        String queryPath = CLASS_PATH + queryName + FILE_EXTENSION;
-        return Query.builder()
-                .value(new String(Files.readAllBytes(Paths.get(
-                        resourceLoader.getResource(queryPath).getURI()
-                ))))
-                .build();
+    public Query load(QueryCode code) throws QueryNotFoundException {
+        try {
+            String queryPath = CLASS_PATH + code.getValue() + FILE_EXTENSION;
+
+            return Query.builder()
+                    .value(new String(Files.readAllBytes(Paths.get(
+                            resourceLoader.getResource(queryPath).getURI()
+                    ))))
+                    .build();
+        } catch (IOException e) {
+            throw new QueryNotFoundException(code);
+        }
     }
 }

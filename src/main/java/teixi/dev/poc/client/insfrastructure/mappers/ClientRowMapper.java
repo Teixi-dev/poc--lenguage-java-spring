@@ -1,4 +1,4 @@
-package teixi.dev.poc.client.insfrastructure.models;
+package teixi.dev.poc.client.insfrastructure.mappers;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;

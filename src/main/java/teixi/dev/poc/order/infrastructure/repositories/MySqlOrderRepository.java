@@ -4,23 +4,30 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import teixi.dev.poc.client.domain.models.ClientCode;
 import teixi.dev.poc.order.domain.exceptions.OrderNotFoundException;
 import teixi.dev.poc.order.domain.models.Order;
+import teixi.dev.poc.order.domain.models.OrderCode;
 import teixi.dev.poc.order.domain.repositories.OrderRepository;
 import teixi.dev.poc.order.infrastructure.mappers.OrderRowMapper;
-import teixi.dev.poc.client.domain.models.ClientCode;
-import teixi.dev.poc.order.domain.models.OrderCode;
+import teixi.dev.poc.shared.domain.exceptions.QueryNotFoundException;
 import teixi.dev.poc.shared.domain.models.Query;
+import teixi.dev.poc.shared.domain.models.QueryCode;
 import teixi.dev.poc.shared.domain.repositories.QueryRepository;
 
-import java.io.IOException;
 import java.util.List;
 
 @Repository
 public class MySqlOrderRepository implements OrderRepository {
-    private static final String FIND_BY_CODE_QUERY_PATH = "findOrderByCode";
-    private static final String SEARCH_BY_CLIENT_CODE_QUERY_PATH = "searchOrderByClientCode";
-    private static final String SAVE_ORDER_QUERY_PATH = "saveOrder";
+    private static final QueryCode FIND_BY_CODE_QUERY_PATH = QueryCode.builder()
+            .value("findOrderByCode")
+            .build();
+    private static final QueryCode SEARCH_BY_CLIENT_CODE_QUERY_PATH = QueryCode.builder()
+            .value("searchOrderByClientCode")
+            .build();
+    private static final QueryCode SAVE_ORDER_QUERY_PATH = QueryCode.builder()
+            .value("saveOrder")
+            .build();
     private static final String ORDER_CODE_QUERY_PARAM = "orderCode";
     private static final String CLIENT_CODE_QUERY_PARAM = "clientCode";
     private static final String PRODUCT_CODE_QUERY_PARAM = "productCode";
@@ -37,7 +44,7 @@ public class MySqlOrderRepository implements OrderRepository {
             NamedParameterJdbcTemplate jdbcTemplate,
             OrderRowMapper mapper,
             QueryRepository queryRepository
-    ) throws IOException {
+    ) throws QueryNotFoundException {
         this.jdbcTemplate = jdbcTemplate;
         this.mapper = mapper;
         this.findByCode = queryRepository.load(FIND_BY_CODE_QUERY_PATH);

@@ -1,9 +1,9 @@
 package teixi.dev.poc.shared.domain.repositories;
 
+import teixi.dev.poc.shared.domain.exceptions.QueryNotFoundException;
 import teixi.dev.poc.shared.domain.models.Query;
-
-import java.io.IOException;
+import teixi.dev.poc.shared.domain.models.QueryCode;
 
 public interface QueryRepository {
-    public Query load(String queryName) throws IOException;
+    public Query load(QueryCode code) throws QueryNotFoundException;
 }

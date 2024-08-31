@@ -14,7 +14,6 @@ import java.util.UUID;
 
 @Controller
 public class GetOrdersByClientCodeController {
-
     private final GetOrdersByClientCodeUseCase useCase;
 
     public GetOrdersByClientCodeController(GetOrdersByClientCodeUseCase useCase) {

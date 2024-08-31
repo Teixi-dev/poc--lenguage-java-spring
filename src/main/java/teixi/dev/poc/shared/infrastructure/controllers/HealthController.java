@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HealthController {
-
     private static final String OK_STATUS = "OK";
 
     @GetMapping(value = "/health")

@@ -1,11 +1,11 @@
-package teixi.dev.poc.client.insfrastructure.models;
+package teixi.dev.poc.client.application.models;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class ClientView {
+public class ClientResponse {
     private String code;
     private String name;
 }

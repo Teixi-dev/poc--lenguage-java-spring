@@ -1,14 +1,14 @@
-package teixi.dev.poc.product.infrastructure.mappers;
+package teixi.dev.poc.product.application.mappers;
 
 import org.springframework.stereotype.Service;
 import teixi.dev.poc.product.domain.models.Product;
-import teixi.dev.poc.product.infrastructure.models.ProductView;
+import teixi.dev.poc.product.application.models.ProductResponse;
 
 @Service
-public class ProductViewMapper {
+public class ProductResponseMapper {
 
-    public ProductView map(Product product) {
-        return ProductView.builder()
+    public ProductResponse map(Product product) {
+        return ProductResponse.builder()
                 .code(product.getCode().getValue().toString())
                 .name(product.getName())
                 .detail(product.getDetail())
