@@ -31,6 +31,8 @@ public class MySqlOrderRepository implements OrderRepository {
     private static final String ORDER_CODE_QUERY_PARAM = "orderCode";
     private static final String CLIENT_CODE_QUERY_PARAM = "clientCode";
     private static final String PRODUCT_CODE_QUERY_PARAM = "productCode";
+    private static final String CREATED_AT_QUERY_PARAM = "createdAt";
+    private static final String UPDATED_AT_QUERY_PARAM = "updatedAt";
     private static final String AMOUNT_QUERY_PARAM = "amount";
     private static final String STATUS_QUERY_PARAM = "status";
 
@@ -84,6 +86,8 @@ public class MySqlOrderRepository implements OrderRepository {
                         .addValue(PRODUCT_CODE_QUERY_PARAM, order.getProductCode().getValue().toString())
                         .addValue(AMOUNT_QUERY_PARAM, order.getAmount())
                         .addValue(STATUS_QUERY_PARAM, order.getStatus().toString())
+                        .addValue(UPDATED_AT_QUERY_PARAM, order.getUpdatedAt())
+                        .addValue(CREATED_AT_QUERY_PARAM, order.getCreatedAt())
         );
     }
 }

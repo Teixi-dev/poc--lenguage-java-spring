@@ -42,7 +42,6 @@ public class ClassPathQueryRepository implements QueryRepository {
     }
 
     private String normalizeJumpLines(String value) {
-
         return value
                 .replace(CR_OLD_MAC_JUMP_LINE, EMPTY_STRING)
                 .replace(CRLF_WINDOWS_JUMP_LINE, EMPTY_STRING);

@@ -13,6 +13,7 @@ import teixi.dev.poc.client.domain.repositories.ClientRepository;
 import teixi.dev.poc.order.application.mappers.OrderResponseMapper;
 import teixi.dev.poc.order.application.models.CreateOrderCommand;
 import teixi.dev.poc.order.application.models.response.OrderResponse;
+import teixi.dev.poc.order.domain.exceptions.InvalidOrderAmountException;
 import teixi.dev.poc.order.domain.models.Order;
 import teixi.dev.poc.order.domain.models.OrderStatus;
 import teixi.dev.poc.order.domain.repositories.OrderRepository;
@@ -147,6 +148,31 @@ public class CreateOrderUseCaseTest {
 
         Assertions.assertThrows(
                 InsufficientProductStockException.class,
+                () -> this.useCase.execute(command)
+        );
+    }
+
+    @Test
+    public void whenCreateOrderThenWithInvalidAmountThenThrowInvalidOrderAmountException() {
+        ArgumentCaptor<Order> orderCaptor = ArgumentCaptor.forClass(Order.class);
+        ArgumentCaptor<Product> productCaptor = ArgumentCaptor.forClass(Product.class);
+
+        Client client = this.clientTestDataGenerator.generateClient();
+        Product product = this.productTestDataGenerator.generateProduct();
+
+        Mockito.when(this.clientRepository.find(client.getCode()))
+                .thenReturn(client);
+        Mockito.when(this.productRepository.find(product.getCode()))
+                .thenReturn(product);
+
+        CreateOrderCommand command = CreateOrderCommand.builder()
+                .clientCode(client.getCode().getValue())
+                .productCode(product.getCode().getValue())
+                .amount(this.faker.number().negative())
+                .build();
+
+        Assertions.assertThrows(
+                InvalidOrderAmountException.class,
                 () -> this.useCase.execute(command)
         );
     }

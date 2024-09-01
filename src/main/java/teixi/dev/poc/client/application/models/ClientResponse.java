@@ -22,9 +22,4 @@ public class ClientResponse {
         if (!(o instanceof ClientResponse that)) return false;
         return Objects.equals(code, that.code) && Objects.equals(name, that.name) && Objects.equals(phone, that.phone);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(code, name, phone);
-    }
 }

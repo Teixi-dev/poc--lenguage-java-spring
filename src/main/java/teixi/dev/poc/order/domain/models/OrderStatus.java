@@ -1,14 +1,13 @@
 package teixi.dev.poc.order.domain.models;
 
 import lombok.Getter;
+import teixi.dev.poc.order.domain.exceptions.InvalidOrderStatusException;
 
 @Getter
 public enum OrderStatus {
     PENDING("Pending"),
     SHIPPED("Shipped"),
-    DELIVERED("Delivered"),
-    INVALID_STATUS("Invalid Status");
-
+    DELIVERED("Delivered");
     private final String value;
 
     OrderStatus(String value) {
@@ -22,6 +21,6 @@ public enum OrderStatus {
             }
         }
 
-        return INVALID_STATUS;
+        throw new InvalidOrderStatusException(value);
     }
 }

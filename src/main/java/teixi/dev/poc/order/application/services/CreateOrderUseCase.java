@@ -52,7 +52,6 @@ public class CreateOrderUseCase {
         this.productRepository.save(productWithdrawStock);
 
         Order order = Order.create(
-                OrderCode.create(),
                 clientCode,
                 productCode,
                 command.getAmount()

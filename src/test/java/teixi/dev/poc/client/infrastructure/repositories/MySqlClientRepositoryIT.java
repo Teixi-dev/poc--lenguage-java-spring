@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class MySqlClientRepositoryIT extends IntegrationTestWithApplicationContainers {
-    public static final String DELETE_FROM_CLIENTS = "DELETE FROM clients";
     @Autowired
     private MySqlClientRepository repository;
 
+    public static final String DELETE_FROM_CLIENTS = "DELETE FROM clients";
     private static final Client SOME_CLIENT = Client.builder()
             .code(ClientCode.builder().value(UUID.fromString("b4e5c42e-7e6b-11ec-90d6-0242ac120003")).build())
             .name("John Doe")
@@ -28,7 +28,12 @@ public class MySqlClientRepositoryIT extends IntegrationTestWithApplicationConta
             .name("Jane Smith")
             .phone("555-5678")
             .build();
-    private static final int EXPECTED_SEARCH_ALL_SIZE = 2;
+    private static final Client OTHER_MORE_CLIENT = Client.builder()
+            .code(ClientCode.builder().value(UUID.fromString("538e2695-8b66-4bca-8b57-93d18f746be4")).build())
+            .name("Jane Doe")
+            .phone("555-5678")
+            .build();
+    private static final int EXPECTED_SEARCH_ALL_SIZE = 3;
     private static final int EXPECTED_SEARCH_ALL_EMPTY_SIZE = 0;
 
     @Test
@@ -53,7 +58,7 @@ public class MySqlClientRepositoryIT extends IntegrationTestWithApplicationConta
         List<Client> clients = this.repository.searchAll();
 
         Assertions.assertEquals(EXPECTED_SEARCH_ALL_SIZE, clients.size());
-        Assertions.assertTrue(clients.containsAll(List.of(SOME_CLIENT, OTHER_CLIENT)));
+        Assertions.assertTrue(clients.containsAll(List.of(SOME_CLIENT, OTHER_CLIENT, OTHER_MORE_CLIENT)));
     }
 
     @Test

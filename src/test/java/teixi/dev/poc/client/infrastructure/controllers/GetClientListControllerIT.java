@@ -16,7 +16,7 @@ public class GetClientListControllerIT extends IntegrationTestWithApplicationCon
     @LocalServerPort
     private int port;
 
-    private static final int EXPECTED_SEARCH_ALL_SIZE = 2;
+    private static final int EXPECTED_SEARCH_ALL_SIZE = 3;
     private static final int EXPECTED_SEARCH_ALL_EMPTY_SIZE = 0;
     private static final String URL_TEMPLATE = "/clients";
     private static final String BASE_URL = "http://localhost";
@@ -30,6 +30,11 @@ public class GetClientListControllerIT extends IntegrationTestWithApplicationCon
     private static final ClientResponse OTHER_CLIENT = ClientResponse.builder()
             .code("b4e5c9ec-7e6b-11ec-90d6-0242ac120003")
             .name("Jane Smith")
+            .phone("555-5678")
+            .build();
+    private static final ClientResponse OTHER_MORE_CLIENT = ClientResponse.builder()
+            .code("538e2695-8b66-4bca-8b57-93d18f746be4")
+            .name("Jane Doe")
             .phone("555-5678")
             .build();
 
@@ -53,7 +58,7 @@ public class GetClientListControllerIT extends IntegrationTestWithApplicationCon
                 .getList(EMPTY_STRING, ClientResponse.class);
 
         Assertions.assertEquals(EXPECTED_SEARCH_ALL_SIZE, result.size());
-        Assertions.assertTrue(result.containsAll(List.of(SOME_CLIENT, OTHER_CLIENT)));
+        Assertions.assertTrue(result.containsAll(List.of(SOME_CLIENT, OTHER_CLIENT, OTHER_MORE_CLIENT)));
     }
 
     @Test

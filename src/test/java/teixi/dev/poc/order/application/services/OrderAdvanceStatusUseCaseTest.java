@@ -152,23 +152,6 @@ public class OrderAdvanceStatusUseCaseTest {
     }
 
     @Test
-    public void whenExecuteAndOrderExistAndIsInvalidStatusThenThrowOrderAdvanceStatusException() {
-        Order order = this.orderTestDataGenerator.generateOrder(OrderStatus.INVALID_STATUS);
-
-        Mockito.when(this.orderRepository.find(order.getCode()))
-                .thenReturn(order);
-
-        OrderAdvanceStatusCommand command = OrderAdvanceStatusCommand.builder()
-                .orderCode(order.getCode().getValue())
-                .build();
-
-        Assertions.assertThrows(
-                OrderAdvanceStatusException.class,
-                () -> this.useCase.execute(command)
-        );
-    }
-
-    @Test
     public void whenExecuteButOrderNotExistThenThrowOrderNotFoundException() {
         OrderCode orderCode = this.orderTestDataGenerator.generateOrderCode();
 

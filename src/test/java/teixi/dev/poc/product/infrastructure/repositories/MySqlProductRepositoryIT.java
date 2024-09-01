@@ -3,14 +3,12 @@ package teixi.dev.poc.product.infrastructure.repositories;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ActiveProfiles;
 import teixi.dev.poc.product.domain.exception.ProductNotFoundException;
 import teixi.dev.poc.product.domain.models.Product;
 import teixi.dev.poc.product.domain.models.ProductCode;
 import teixi.dev.poc.shared.infrastructure.services.IntegrationTestWithApplicationContainers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +36,7 @@ public class MySqlProductRepositoryIT extends IntegrationTestWithApplicationCont
             .stock(20)
             .build();
     private static final int WITHDRAW_STOCK_AMOUNT = 12;
+    private static final int EXPECTED_EMPTY_LIST_SIZE = 0;
 
     @Test
     public void whenFindAndExistThenReturnProduct() {
@@ -81,7 +80,7 @@ public class MySqlProductRepositoryIT extends IntegrationTestWithApplicationCont
     }
 
     @Test
-    public void whenSaveProductAndExistThenUpdateExistingProduct() {
+    public void whenSaveProductAndExistThenUpdateExistingProduct() throws IOException {
         Product product = this.repository.find(LAPTOP_PRODUCT.getCode());
 
         Product productWithStockWithdrawn = product.withdrawStock(WITHDRAW_STOCK_AMOUNT);
@@ -91,5 +90,28 @@ public class MySqlProductRepositoryIT extends IntegrationTestWithApplicationCont
         Product productFoundWithStockWithdrawn = this.repository.find(LAPTOP_PRODUCT.getCode());
 
         Assertions.assertEquals(productWithStockWithdrawn, productFoundWithStockWithdrawn);
+
+        this.restartDatabase();
+    }
+
+    @Test
+    public void whenSearchAllProductsAndHaveThenReturnListOfProducts() {
+        List<Product> expectedProducts = List.of(LAPTOP_PRODUCT, SMARTPHONE_PRODUCT, MONITOR_PRODUCT);
+
+        List<Product> result = this.repository.searchAll();
+
+        Assertions.assertEquals(expectedProducts.size(), result.size());
+        Assertions.assertTrue(result.containsAll(expectedProducts));
+    }
+
+    @Test
+    public void whenSearchAllProductsButNotHaveThenReturnEmptyList() throws IOException {
+        jdbcTemplate.execute(DELETE_FROM_PRODUCTS);
+
+        List<Product> result = this.repository.searchAll();
+
+        Assertions.assertEquals(EXPECTED_EMPTY_LIST_SIZE, result.size());
+
+        this.restartDatabase();
     }
 }
