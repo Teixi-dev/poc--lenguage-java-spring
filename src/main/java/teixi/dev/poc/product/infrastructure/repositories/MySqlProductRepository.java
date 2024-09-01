@@ -75,8 +75,8 @@ public class MySqlProductRepository implements ProductRepository {
     }
 
     @Override
-    public List<Product> find(List<ProductCode> productsCode) {
-        return this.jdbcTemplate.query(
+    public List<Product> find(List<ProductCode> productsCode) throws ProductNotFoundException {
+        List<Product> products = this.jdbcTemplate.query(
                 findProductsByCodes.getValue(),
                 new MapSqlParameterSource(
                         LIST_OF_PRODUCT_CODE_QUERY_PARAM,
@@ -86,6 +86,15 @@ public class MySqlProductRepository implements ProductRepository {
                 ),
                 mapper
         );
+
+        List<ProductCode> notFoundProducts = productsCode.stream()
+                .filter(code -> products.stream().noneMatch(product -> product.getCode().equals(code)))
+                .toList();
+
+        if (!notFoundProducts.isEmpty())
+            throw new ProductNotFoundException(notFoundProducts);
+
+        return products;
     }
 
     @Override

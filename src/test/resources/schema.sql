@@ -6,7 +6,6 @@ CREATE TABLE `products` (
     `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
 CREATE TABLE `clients` (
     `code` VARCHAR(36) PRIMARY KEY,
     `phone` varchar(50),
@@ -14,7 +13,6 @@ CREATE TABLE `clients` (
     `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
 CREATE TABLE `orders` (
     `code` VARCHAR(36) PRIMARY KEY,
     `client` VARCHAR(36),
@@ -22,15 +20,11 @@ CREATE TABLE `orders` (
     `amount` int,
     `status` VARCHAR(50),
     `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    `updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`client`) REFERENCES `clients` (`code`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (`product`) REFERENCES `products` (`code`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
-
-ALTER TABLE
-    `orders`
-ADD
-    FOREIGN KEY (`user`) REFERENCES `clients` (`code`);
-
-ALTER TABLE
-    `orders`
-ADD
-    FOREIGN KEY (`product`) REFERENCES `products` (`code`);

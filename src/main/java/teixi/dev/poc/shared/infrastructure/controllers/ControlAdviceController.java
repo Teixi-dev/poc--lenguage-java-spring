@@ -10,7 +10,6 @@ public class ControlAdviceController {
 
     @ExceptionHandler({RuntimeDomainViolation.class})
     public ResponseEntity<String> runtimeDomainViolationHandler(RuntimeDomainViolation runtimeDomainViolation) {
-
         return ResponseEntity
                 .status(runtimeDomainViolation.getHttpStatus())
                 .body(runtimeDomainViolation.getDescription());

@@ -2,9 +2,9 @@ package teixi.dev.poc.order.domain.models;
 
 import lombok.Builder;
 import lombok.Getter;
+import teixi.dev.poc.client.domain.models.ClientCode;
 import teixi.dev.poc.order.domain.exceptions.InvalidAmountException;
 import teixi.dev.poc.order.domain.exceptions.OrderAdvanceStatusException;
-import teixi.dev.poc.client.domain.models.ClientCode;
 import teixi.dev.poc.product.domain.models.ProductCode;
 
 import java.util.Date;
@@ -30,7 +30,7 @@ public class Order {
                 .amount(this.amount)
                 .status(this.status)
                 .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
+                .updatedAt(new Date())
                 .build();
 
         switch (advancedOrder.status) {

@@ -8,6 +8,8 @@ import teixi.dev.poc.product.application.models.GetProductCommand;
 import teixi.dev.poc.product.application.models.ProductResponse;
 import teixi.dev.poc.product.application.services.GetProductUseCase;
 
+import java.util.UUID;
+
 @Controller
 public class GetProductController {
     private final GetProductUseCase useCase;
@@ -19,7 +21,7 @@ public class GetProductController {
     @GetMapping(value = "/products/{productCode}")
     public ResponseEntity<ProductResponse> getProduct(@PathVariable String productCode) {
         GetProductCommand command = GetProductCommand.builder()
-                .productCode(productCode)
+                .productCode(UUID.fromString(productCode))
                 .build();
 
         return ResponseEntity.ok(this.useCase.execute(command));

@@ -21,7 +21,7 @@ public class GetProductUseCase {
 
     public ProductResponse execute(GetProductCommand command) {
         ProductCode productCode = ProductCode.builder()
-                .value(UUID.fromString(command.getProductCode()))
+                .value(command.getProductCode())
                 .build();
 
         return this.mapper.map(this.repository.find(productCode));

@@ -13,6 +13,7 @@ import java.util.UUID;
 public class ClientRowMapper implements RowMapper<Client> {
     private static final String CODE_COLUMN = "code";
     private static final String NAME_COLUMN = "name";
+    private static final String PHONE_COLUMN = "phone";
 
     @Override
     public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -21,6 +22,7 @@ public class ClientRowMapper implements RowMapper<Client> {
                         .value(UUID.fromString(rs.getString(CODE_COLUMN)))
                         .build()
                 )
+                .phone(rs.getString(PHONE_COLUMN))
                 .name(rs.getString(NAME_COLUMN))
                 .build();
     }

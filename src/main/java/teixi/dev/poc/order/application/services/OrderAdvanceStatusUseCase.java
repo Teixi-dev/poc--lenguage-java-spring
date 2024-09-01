@@ -1,24 +1,34 @@
 package teixi.dev.poc.order.application.services;
 
 import org.springframework.stereotype.Service;
-import teixi.dev.poc.order.application.models.GetOrderByCodeCommand;
+import teixi.dev.poc.client.domain.models.Client;
+import teixi.dev.poc.client.domain.repositories.ClientRepository;
+import teixi.dev.poc.order.application.mappers.OrderResponseMapper;
 import teixi.dev.poc.order.application.models.OrderAdvanceStatusCommand;
 import teixi.dev.poc.order.application.models.response.OrderResponse;
 import teixi.dev.poc.order.domain.models.Order;
-import teixi.dev.poc.order.domain.repositories.OrderRepository;
 import teixi.dev.poc.order.domain.models.OrderCode;
+import teixi.dev.poc.order.domain.repositories.OrderRepository;
+import teixi.dev.poc.product.domain.models.Product;
+import teixi.dev.poc.product.domain.repositories.ProductRepository;
 
 @Service
 public class OrderAdvanceStatusUseCase {
-    private final OrderRepository repository;
-    private final GetOrderByCodeUseCase useCase;
+    private final OrderRepository orderRepository;
+    private final ClientRepository clientRepository;
+    private final ProductRepository productRepository;
+    private final OrderResponseMapper mapper;
 
     public OrderAdvanceStatusUseCase(
-            OrderRepository repository,
-            GetOrderByCodeUseCase useCase
+            OrderRepository orderRepository,
+            ClientRepository clientRepository,
+            ProductRepository productRepository,
+            OrderResponseMapper mapper
     ) {
-        this.repository = repository;
-        this.useCase = useCase;
+        this.orderRepository = orderRepository;
+        this.clientRepository = clientRepository;
+        this.productRepository = productRepository;
+        this.mapper = mapper;
     }
 
     public OrderResponse execute(OrderAdvanceStatusCommand command) {
@@ -26,14 +36,14 @@ public class OrderAdvanceStatusUseCase {
                 .value(command.getOrderCode())
                 .build();
 
-        Order order = this.repository.find(orderCode);
+        Order order = this.orderRepository.find(orderCode);
         Order advancedOrder = order.advanceStatus();
 
-        this.repository.save(advancedOrder);
+        this.orderRepository.save(advancedOrder);
 
-        return this.useCase.execute(GetOrderByCodeCommand.builder()
-                .orderCode(advancedOrder.getCode().getValue())
-                .build()
-        );
+        Client client = this.clientRepository.find(advancedOrder.getClientCode());
+        Product product = this.productRepository.find(advancedOrder.getProductCode());
+
+        return this.mapper.map(advancedOrder, client, product);
     }
 }
